@@ -28,7 +28,10 @@ class TrainSeeder extends Seeder
             $train->arrival_station = fake()->city();
             $train->departure_time = fake()->time();
             $train->arrival_time = fake()->time();
-            $train->code = fake()->regexify('[A-Z0-9]{7}');
+
+            // se aggiungo unique() dopo fake(), fakere me lo gestisce in auto e mi restituisce tutti risulati diversi
+            $train->code = fake()->unique()->regexify('[A-Z0-9]{7}');
+
             $train->num_carriages = rand(2, 6);
             $train->in_time = fake()->boolean();
             $train->deleted = fake()->boolean();

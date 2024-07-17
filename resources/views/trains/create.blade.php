@@ -4,6 +4,10 @@
 
 @section('main-content')
 <h1>
-    Benvenuto
+    Creazione
 </h1>
+
+<section id="create">
+    Crea
+</section>
 @endsection
