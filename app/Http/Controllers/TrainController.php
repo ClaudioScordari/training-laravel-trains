@@ -33,7 +33,21 @@ class TrainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $train_datas = $request->all();
+
+        $train = new Train();
+        $train->company = $train_datas['company'];
+        $train->departure_station = $train_datas['departure_station'];
+        $train->arrival_station = $train_datas['arrival_station'];
+        $train->departure_time = $train_datas['departure_time'];
+        $train->arrival_time = $train_datas['arrival_time'];
+        $train->code = $train_datas['code'];
+        $train->num_carriages = $train_datas['num_carriages'];
+        $train->in_time = $train_datas['in_time'];
+        $train->deleted = $train_datas['deleted'];
+        $train->save();
+
+        return redirect()->route('trains.show', ['train' => $train->id]);
     }
 
     /**
