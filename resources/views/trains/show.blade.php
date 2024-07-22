@@ -50,7 +50,7 @@
         <li>
             {{-- deleted: {{ $train->deleted }} --}}
 
-            @if ($train->deletd == true)
+            @if ($train->deleted == true)
                 Cancellato
             @else
                 Non cancellato

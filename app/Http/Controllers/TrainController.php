@@ -35,19 +35,9 @@ class TrainController extends Controller
     {
         $train_datas = $request->all();
 
-        $train = new Train();
-        $train->company = $train_datas['company'];
-        $train->departure_station = $train_datas['departure_station'];
-        $train->arrival_station = $train_datas['arrival_station'];
-        $train->departure_time = $train_datas['departure_time'];
-        $train->arrival_time = $train_datas['arrival_time'];
-        $train->code = $train_datas['code'];
-        $train->num_carriages = $train_datas['num_carriages'];
-        $train->in_time = $train_datas['in_time'];
-        $train->deleted = $train_datas['deleted'];
-        $train->save();
+        $train = Train::create($train_datas);
 
-        return redirect()->route('trains.show', ['train' => $train->id]);
+        return redirect()->route('trains.show', $train->id);
     }
 
     /**
@@ -61,24 +51,31 @@ class TrainController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Train $train)
     {
-        //
+        return view('trains.edit', compact('train'));  
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Train $train)
     {
-        //
+        $editedDatas = $request->all();
+
+        // aggiorno
+        $train->update($editedDatas);
+
+        return redirect()->route('trains.show', $train->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Train $train)
     {
-        //
+        $train->delete();
+
+        return redirect()->route('trains.index');
     }
 }

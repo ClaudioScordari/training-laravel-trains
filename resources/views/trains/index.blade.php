@@ -21,6 +21,17 @@
 
                 <div>
                     <a class="btn btn-primary" href="{{ route('trains.show', $train->id); }}">Vai al singolo treno</a>
+
+                    <a class="btn btn-warning" href="{{ route('trains.edit', $train->id); }}">Modifica questo treno</a>
+
+                    <form class="d-inline-block" onsubmit="return confirm('Sei sicuro?');" action="{{ route('trains.destroy', $train->id); }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn btn-danger">
+                            Elimina questo treno
+                        </button>
+                    </form>
                 </div>
 
                 <hr>
