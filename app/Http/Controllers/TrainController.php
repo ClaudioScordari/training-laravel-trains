@@ -9,6 +9,19 @@ use App\Models\Train;
 
 class TrainController extends Controller
 {
+    // validazione backend
+    private $validatedRules = [
+        'company' => 'required|max:64',
+        'departure_station' => 'required|max:64',
+        'arrival_station' => 'required|max:64',
+        'departure_time' => 'required',
+        'arrival_time' => 'required',
+        'code' => 'required|max:7|unique:App\Models\Train,code',
+        'num_carriages' => 'nullable|min:1|max:9|numeric',
+        'in_time' => 'required|boolean',
+        'deleted' => 'required|boolean',
+    ];
+
     /**
      * Display a listing of the resource.
      */
@@ -33,6 +46,8 @@ class TrainController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->validatedRules);
+
         $train_datas = $request->all();
 
         $train = Train::create($train_datas);
@@ -61,6 +76,8 @@ class TrainController extends Controller
      */
     public function update(Request $request, Train $train)
     {
+        $request->validate($this->validatedRules);
+
         $editedDatas = $request->all();
 
         // aggiorno
